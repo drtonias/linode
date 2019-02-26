@@ -1,0 +1,31 @@
+1.新服务器需要先root安装下载程序：wget，旧服务器可以忽略这条命令：
+yum -y install wget
+
+
+2.root运行，以下脚本（全部复制后，粘贴即可）：
+wget --no-check-certificate -O shadowsocks-all.sh https://raw.githubusercontent.com/teddysun/shadowsocks_install/master/shadowsocks-all.sh
+chmod +x shadowsocks-all.sh
+./shadowsocks-all.sh 2>&1 | tee shadowsocks-all.log
+
+
+3.然后选择，2) ShadowsocksR：
+
+
+4.依次按需设置好参数，回车安装：
+password
+port
+
+3天
+加密方式，推荐：12) chacha20
+protocol，推荐：6) auth_aes128_sha1
+混淆模式，推荐：6) tls1.2_ticket_auth
+
+Your Server IP        :  23.239.4.249
+Your Server Port      :  16650
+Your Password         :  451523etw@
+Your Protocol         :  auth_chain_a
+Your obfs             :  http_XXXple
+Your Encryption Method:  XXX-256-ctr
+
+
+
