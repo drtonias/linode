@@ -1,0 +1,22 @@
+1.如果你的主机位于国内，则使用上述脚本安装 Docker 可能较慢。为此，可以换用 DaoCloud 提供的、换用了国内镜像的安装脚本：
+curl -sSL https://get.daocloud.io/docker | sh
+
+
+2.启动docker
+service docker start
+
+
+3.之后，安装一个 PostgreSQL 的 Docker 镜像：
+docker run -d --name ttrssdb nornagon/postgres
+
+
+4.最后，安装 Tiny Tiny RSS 本身的 Docker 镜像
+
+docker run -d --link ttrssdb:db -p 8090:80 -e SELF_URL_PATH=http://74.207.242.11:8090 fischerman/docker-ttrss
+
+
+默认：docker run -d --link ttrssdb:db -p 80:80 -e SELF_URL_PATH=http://example.org/ttrss fischerman/docker-ttrss
+上述命令中的一些关键部分：
+-p 80:80：该参数表明，将该容器内应用的 80 端口（冒号后）映射到主机的 80 端口（冒号前）上。如果你的主机还需运行其他 80 端口的服务（如博客建站），则应将冒号前的值改为一个未被占用的端口。例如，-p 8080:80 将启用主机的 8080 端口。
+-e SELF_URL_PATH=http://example.org/ttrss ：该参数表明，该 Tiny Tiny RSS 应用将可从 http://example.org/ttrss 访问。如果你在上一步保持了默认的端口设置，则直接将上述网址换为你主机的 IP 地址（或解析至该主机的域名）即可，否则，应在地址之后进一步表明使用的端口，如：http://xxx.xxx.xxx.xxx:8080。
+
